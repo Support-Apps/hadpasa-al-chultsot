@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👕 Trading T-Shirt Prints - English</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700;800;900&family=Permanent+Marker&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #1a1a2e;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p { color: #8892b0; }
+
+        .instructions {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            color: #a0a8b8;
+        }
+
+        .instructions h3 { color: #ffd700; margin-bottom: 10px; }
+        .instructions ul { margin-left: 20px; line-height: 1.8; }
+
+        /* T-Shirt Mockup */
+        .mockup-section {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .mockup-examples {
+            display: flex;
+            justify-content: center;
+        }
+
+        .tshirt-mockup {
+            position: relative;
+            width: 220px;
+            height: 240px;
+        }
+
+        .tshirt-mockup svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tshirt-design {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+            color: #1a1a2e;
+        }
+
+        .tshirt-design span {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .tshirt-design div {
+            font-weight: 900;
+            font-size: 0.9rem;
+            color: #1a1a2e;
+        }
+
+        .section-title {
+            color: #ffd700;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 40px 0 25px;
+        }
+
+        .prints-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .print-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .print-preview {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: #ffffff;
+            border-bottom: 2px solid #eee;
+        }
+
+        .design {
+            text-align: center;
+            max-width: 260px;
+        }
+
+        .design .icon { font-size: 3.5rem; margin-bottom: 12px; display: block; }
+        .design .main-text {
+            font-weight: 900;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        .design .sub-text {
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .print-info {
+            display: none;
+        }
+
+        /* Modal for preview on t-shirt */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-tshirt {
+            position: relative;
+            width: 350px;
+            height: 320px;
+        }
+
+        .modal-tshirt svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-design {
+            position: absolute;
+            top: 42%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+            color: #1a1a2e;
+        }
+
+        .modal-design .icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .modal-design .main-text {
+            font-weight: 900;
+            font-size: 1.4rem;
+            line-height: 1.2;
+            color: #1a1a2e;
+        }
+
+        .modal-design .sub-text {
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+            margin-top: 4px;
+        }
+
+        .modal-hint {
+            color: white;
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .print-single-btn {
+            position: absolute;
+            bottom: 70px;
+            background: linear-gradient(135deg, #ffd700, #f59e0b);
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .print-single-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .print-card {
+            cursor: pointer;
+        }
+
+        .print-info h4 { color: #1a1a2e; font-size: 0.95rem; margin-bottom: 3px; }
+        .print-info p { color: #666; font-size: 0.8rem; }
+
+        .download-btn {
+            display: block;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700, #f59e0b);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        @media print {
+            body { background: white; }
+            .header, .instructions, .print-info, .download-btn, .section-title { display: none; }
+            .print-card { page-break-inside: avoid; margin-bottom: 20px; box-shadow: none; border: 1px solid #ccc; }
+        }
+
+        @media (max-width: 768px) {
+            .prints-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👕 Trading T-Shirt Prints</h1>
+        <p>50+ Professional Print-Ready Designs</p>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 Print Instructions:</h3>
+        <ul>
+            <li>Right-click on any design → Save Image (or screenshot)</li>
+            <li>Upload to Printful, Printify, Redbubble, or local print shop</li>
+            <li>Recommended print size: 12" x 12" for front</li>
+            <li>All designs on white background - works on any shirt color</li>
+        </ul>
+    </div>
+
+    <!-- Mockup Example -->
+    <div class="mockup-section">
+        <h3 class="section-title">👕 Example: How It Looks On A T-Shirt</h3>
+        <div class="mockup-examples">
+            <div class="tshirt-mockup">
+                <svg viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- T-Shirt Shape -->
+                    <path d="M55 0 L85 0 Q95 10 110 10 Q125 10 135 0 L165 0 L220 55 L195 80 L175 60 L175 200 L45 200 L45 60 L25 80 L0 55 L55 0 Z" 
+                          fill="#f5f5f5" 
+                          stroke="#e0e0e0" 
+                          stroke-width="2"/>
+                    <!-- Collar -->
+                    <path d="M85 0 Q95 12 110 12 Q125 12 135 0" 
+                          fill="none" 
+                          stroke="#e0e0e0" 
+                          stroke-width="2"/>
+                </svg>
+                <div class="tshirt-design">
+                    <span>👑</span>
+                    <div>QUEEN OF PIPS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">👑 Royalty Collection</h2>
+    <div class="prints-grid">
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">👑</span>
+                    <div class="main-text">QUEEN OF PIPS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Queen of Pips</h4><p>For the trading queens</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">👑</span>
+                    <div class="main-text">KING OF PIPS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>King of Pips</h4><p>For the trading kings</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💎👑</span>
+                    <div class="main-text">TRADING ROYALTY</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Trading Royalty</h4><p>Crown your success</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">⭐ Best Sellers</h2>
+    <div class="prints-grid">
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💩</span>
+                    <div class="main-text">PIP HAPPENS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Pip Happens</h4><p>Classic trader humor</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📈📉</span>
+                    <div class="main-text">TO THE MOON</div>
+                    <div class="sub-text">or to the floor</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>To The Moon</h4><p>The reality of trading</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">☕📊🔄</span>
+                    <div class="main-text">CAFFEINATE.</div>
+                    <div class="main-text">ANALYZE.</div>
+                    <div class="main-text">REPEAT.</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Caffeinate Analyze Repeat</h4><p>Daily trading routine</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">😂📈</span>
+                    <div class="main-text">LIVE, LAUGH,</div>
+                    <div class="main-text">LEVERAGE</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Live Laugh Leverage</h4><p>Trader's life motto</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💎🙌</span>
+                    <div class="main-text">DIAMOND</div>
+                    <div class="main-text">HANDS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Diamond Hands</h4><p>Never selling in panic</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📉💰</span>
+                    <div class="main-text">BUY THE DIP</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Buy The Dip</h4><p>Classic strategy</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">😂 Humor Collection</h2>
+    <div class="prints-grid">
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🤡</span>
+                    <div class="main-text">PROFESSIONAL</div>
+                    <div class="main-text">TRADER</div>
+                    <div class="sub-text">(self-proclaimed)</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Professional Trader</h4><p>Self-aware humor</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🎲📊</span>
+                    <div class="main-text">IT'S NOT</div>
+                    <div class="main-text">GAMBLING</div>
+                    <div class="sub-text">it's "technical analysis"</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>It's Not Gambling</h4><p>Wink wink</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🔥</span>
+                    <div class="main-text">THIS IS FINE</div>
+                    <div class="sub-text">*portfolio -50%*</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>This Is Fine</h4><p>When markets crash</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📈📉</span>
+                    <div class="main-text">BUY HIGH</div>
+                    <div class="main-text">SELL LOW</div>
+                    <div class="sub-text">the real strategy</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Buy High Sell Low</h4><p>Opposite day</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">👁️⚡</span>
+                    <div class="main-text">I CAME. I SAW.</div>
+                    <div class="main-text">I OVERLEVERAGED.</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>I Came I Saw</h4><p>Trading reality</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💸</span>
+                    <div class="main-text">MONEY PRINTER</div>
+                    <div class="main-text">GO BRRRR</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Money Printer</h4><p>Fed energy</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🦍</span>
+                    <div class="main-text">APE MODE</div>
+                    <div class="sub-text">engaged</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Ape Mode</h4><p>YOLO energy</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">😱</span>
+                    <div class="main-text">MARGIN CALL</div>
+                    <div class="sub-text">survivor</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Margin Call</h4><p>The horror</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📱</span>
+                    <div class="main-text">CHECKING</div>
+                    <div class="main-text">CHARTS</div>
+                    <div class="sub-text">every 5 seconds</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Checking Charts</h4><p>Addicted to charts</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🎢</span>
+                    <div class="main-text">EMOTIONAL</div>
+                    <div class="main-text">ROLLERCOASTER</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Emotional Rollercoaster</h4><p>Daily trading life</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">👀</span>
+                    <div class="main-text">FOMO</div>
+                    <div class="sub-text">fear of missing out</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>FOMO</h4><p>We've all been there</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🔮</span>
+                    <div class="main-text">INDICATORS</div>
+                    <div class="main-text">SAID YES</div>
+                    <div class="sub-text">market said no</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Indicators Said</h4><p>TA vs reality</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">💪 Motivation Collection</h2>
+    <div class="prints-grid">
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🎯</span>
+                    <div class="main-text">TRUST THE</div>
+                    <div class="main-text">PROCESS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Trust The Process</h4><p>Stay the course</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">⏳💰</span>
+                    <div class="main-text">PATIENCE</div>
+                    <div class="main-text">PAYS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Patience Pays</h4><p>Wait for it</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💪</span>
+                    <div class="main-text">STAY</div>
+                    <div class="main-text">DISCIPLINED</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Stay Disciplined</h4><p>Key to success</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🧘</span>
+                    <div class="main-text">TRADE YOUR</div>
+                    <div class="main-text">PLAN</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Trade Your Plan</h4><p>Stick to strategy</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💎</span>
+                    <div class="main-text">DIAMOND</div>
+                    <div class="main-text">MINDSET</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Diamond Mindset</h4><p>Unbreakable</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🏆</span>
+                    <div class="main-text">WINNER'S</div>
+                    <div class="main-text">MINDSET</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Winner's Mindset</h4><p>Think like a champion</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🔥</span>
+                    <div class="main-text">STAY FOCUSED</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Stay Focused</h4><p>Eyes on the prize</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📈</span>
+                    <div class="main-text">COMPOUND</div>
+                    <div class="main-text">GAINS</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Compound Gains</h4><p>8th wonder of the world</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🚫</span>
+                    <div class="main-text">NO EMOTIONS</div>
+                    <div class="sub-text">just data</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>No Emotions</h4><p>Trade the chart</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💰</span>
+                    <div class="main-text">PROTECT YOUR</div>
+                    <div class="main-text">CAPITAL</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Protect Your Capital</h4><p>Rule #1</p></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">📊 Trading Life</h2>
+    <div class="prints-grid">
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🐂</span>
+                    <div class="main-text">BULL MODE</div>
+                    <div class="sub-text">activated</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Bull Mode</h4><p>Going long</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🐻</span>
+                    <div class="main-text">BEAR MODE</div>
+                    <div class="sub-text">activated</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Bear Mode</h4><p>Going short</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🏄‍♀️🌊</span>
+                    <div class="main-text">RIDING THE</div>
+                    <div class="main-text">TREND</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Riding The Trend</h4><p>Trend is your friend</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📈📈</span>
+                    <div class="main-text">TREND IS YOUR</div>
+                    <div class="main-text">FRIEND</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Trend Is Your Friend</h4><p>Trading wisdom</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🤖💰</span>
+                    <div class="main-text">MY BOT MAKES</div>
+                    <div class="main-text">MONEY</div>
+                    <div class="sub-text">while I sleep</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>My Bot Makes Money</h4><p>Algo trading life</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💹</span>
+                    <div class="main-text">GREEN DAY</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Green Day</h4><p>Profitable vibes</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💪</span>
+                    <div class="main-text">FUNDED</div>
+                    <div class="main-text">TRADER</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Funded Trader</h4><p>Made it!</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">🎯</span>
+                    <div class="main-text">RISK MANAGED</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Risk Managed</h4><p>Always protected</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">📝</span>
+                    <div class="main-text">JOURNAL IT</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Journal It</h4><p>Track everything</p></div>
+        </div>
+
+        <div class="print-card">
+            <div class="print-preview">
+                <div class="design">
+                    <span class="icon">💵</span>
+                    <div class="main-text">SHOW ME</div>
+                    <div class="main-text">THE MONEY</div>
+                </div>
+            </div>
+            <div class="print-info"><h4>Show Me The Money</h4><p>Results matter</p></div>
+        </div>
+    </div>
+
+    <!-- ☕ COFFEE & TRADING -->
+    <h2 class="section-title">☕ Coffee & Trading</h2>
+    <div class="prints-grid">
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕📊</span><div class="main-text">NO PIPS</div><div class="main-text">BEFORE SIPS</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕🕯️</span><div class="main-text">POWERED BY</div><div class="main-text">CAFFEINE &</div><div class="main-text">CANDLESTICKS</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕📈</span><div class="main-text">LATTE &</div><div class="main-text">LEVERAGE</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕💀</span><div class="main-text">DECAF TRADERS</div><div class="main-text">GET REKT</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕😴</span><div class="main-text">NO SLEEP</div><div class="sub-text">Just coffee and Forex</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕📊</span><div class="main-text">CHARTS</div><div class="main-text">BEFORE CHATS</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕🧠</span><div class="main-text">COFFEE FIRST</div><div class="main-text">LOGIC LATER</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">☕📊</span><div class="main-text">10% SKILL</div><div class="main-text">90% COFFEE</div></div></div></div>
+    </div>
+
+    <!-- 🥇 GOLD TRADING -->
+    <h2 class="section-title">🥇 Gold Trading (XAUUSD)</h2>
+    <div class="prints-grid">
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">✨🥇</span><div class="main-text">ALL THAT GLITTERS</div><div class="main-text">IS XAUUSD</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">❤️🥇</span><div class="main-text">MY HEART</div><div class="main-text">TRADES GOLD</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💔🥇</span><div class="main-text">XAU/USD IS</div><div class="main-text">MY TOXIC EX</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🥇💪</span><div class="main-text">BUY GOLD</div><div class="main-text">STAY BOLD</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💛🥇</span><div class="main-text">XAU IS BAE</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🥇🏃</span><div class="main-text">I CHASE GOLD</div><div class="main-text">NOT PEOPLE</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💎🥇</span><div class="main-text">DIAMONDS? NAH.</div><div class="sub-text">XAU/USD, baby</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">✨👑</span><div class="main-text">REAL TRADERS</div><div class="main-text">SPARKLE IN GOLD</div></div></div></div>
+    </div>
+
+    <!-- 💡 MORE SLOGANS -->
+    <h2 class="section-title">💡 More Trading Slogans</h2>
+    <div class="prints-grid">
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🙅📊</span><div class="main-text">DON'T BLAME ME</div><div class="main-text">BLAME THE MARKET</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🌙💸</span><div class="main-text">TRADED ALL NIGHT</div><div class="sub-text">Still broke</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🧘🛑</span><div class="main-text">KEEP CALM AND</div><div class="main-text">MOVE YOUR SL</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🎓💸</span><div class="main-text">I DON'T LOSE</div><div class="sub-text">I pay tuition to the market</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">😵📊</span><div class="main-text">TRADING FOREX:</div><div class="sub-text">Because I enjoy emotional damage</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">📊❤️</span><div class="main-text">CHARTS</div><div class="main-text">OVER DATES</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🐂🐻😢</span><div class="main-text">ONLY BULLS, BEARS</div><div class="sub-text">and me crying in the corner</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💕📈</span><div class="main-text">I DON'T CHASE LOVE</div><div class="main-text">I CHASE TRENDS</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">⏱️📈</span><div class="main-text">LIFE'S SHORT</div><div class="main-text">GO LONG</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">📊❤️</span><div class="main-text">TRUST THE CHART</div><div class="sub-text">not your heart</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🗣️🕯️</span><div class="main-text">I SPEAK FLUENT</div><div class="main-text">CANDLESTICK</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🛋️📊</span><div class="main-text">MY THERAPIST</div><div class="sub-text">is named "MetaTrader"</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">📈🙏</span><div class="main-text">TREND IS</div><div class="main-text">MY RELIGION</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">📊🕐</span><div class="main-text">FOREX: BECAUSE</div><div class="sub-text">9 to 5 is for amateurs</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💯📊</span><div class="main-text">I'VE GOT 99 PROBLEMS</div><div class="sub-text">but a pip ain't one</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💚🕯️</span><div class="main-text">GREEN CANDLE</div><div class="main-text">= DOPAMINE</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">📉💔</span><div class="main-text">I BREAK RESISTANCE</div><div class="sub-text">and hearts</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🎢💵</span><div class="main-text">TRADING:</div><div class="sub-text">The rollercoaster I paid to ride</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">📐🎲</span><div class="main-text">IT'S NOT GAMBLING</div><div class="sub-text">if it's technical</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">🔍📊</span><div class="main-text">WHEN IN DOUBT</div><div class="main-text">ZOOM OUT</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💍📈</span><div class="main-text">NOT MARRIED</div><div class="main-text">TO 'BUY'</div></div></div></div>
+        <div class="print-card"><div class="print-preview"><div class="design"><span class="icon">💍📉</span><div class="main-text">NOT MARRIED</div><div class="main-text">TO 'SELL'</div></div></div></div>
+    </div>
+
+    <button class="download-btn" onclick="window.print()">🖨️ Print All Designs</button>
+
+    <!-- Modal for preview on t-shirt -->
+    <div class="modal" id="modal" onclick="closeModal()">
+        <div class="modal-tshirt">
+            <svg viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M55 0 L85 0 Q95 10 110 10 Q125 10 135 0 L165 0 L220 55 L195 80 L175 60 L175 200 L45 200 L45 60 L25 80 L0 55 L55 0 Z" 
+                      fill="#f5f5f5" 
+                      stroke="#e0e0e0" 
+                      stroke-width="2"/>
+                <path d="M85 0 Q95 12 110 12 Q125 12 135 0" 
+                      fill="none" 
+                      stroke="#e0e0e0" 
+                      stroke-width="2"/>
+            </svg>
+            <div class="modal-design" id="modalContent"></div>
+        </div>
+        <button id="printBtn" class="print-single-btn" onclick="event.stopPropagation(); printDesign();">🖨️ Print This Design</button>
+        <div class="modal-hint">Click anywhere to close | Right-click or click print button to print</div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.print-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const design = this.querySelector('.design').innerHTML;
+                document.getElementById('modalContent').innerHTML = design;
+                document.getElementById('printBtn').style.display = 'block';
+                document.getElementById('modal').classList.add('active');
+            });
+
+            card.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const design = this.querySelector('.design').innerHTML;
+                document.getElementById('modalContent').innerHTML = design;
+                document.getElementById('printBtn').style.display = 'block';
+                document.getElementById('modal').classList.add('active');
+            });
+        });
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function printDesign() {
+            const content = document.getElementById('modalContent').innerHTML;
+            const printDiv = document.createElement('div');
+            printDiv.id = 'printArea';
+            printDiv.innerHTML = '<div class="print-design">' + content + '</div>';
+            
+            const style = document.createElement('style');
+            style.id = 'printStyle';
+            style.textContent = `
+                @media print {
+                    body > *:not(#printArea) { display: none !important; }
+                    #printArea { 
+                        display: flex !important; 
+                        justify-content: center; 
+                        align-items: center; 
+                        min-height: 100vh;
+                        position: fixed;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        background: white;
+                        z-index: 99999;
+                    }
+                    .print-design { 
+                        text-align: center; 
+                        padding: 40px;
+                    }
+                    .print-design .icon { font-size: 80px; display: block; margin-bottom: 20px; }
+                    .print-design .main-text { font-weight: 900; font-size: 48px; line-height: 1.2; color: #1a1a2e; }
+                    .print-design .sub-text { font-weight: 600; color: #333; font-size: 24px; margin-top: 12px; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(printDiv);
+            
+            window.print();
+            
+            document.head.removeChild(style);
+            document.body.removeChild(printDiv);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
